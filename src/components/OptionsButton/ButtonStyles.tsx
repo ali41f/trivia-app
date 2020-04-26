@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
         textTransform: 'none',
         fontSize: 16,
         padding: '6px 12px',
-        minWidth: '400px',
+        width: '80%',
         border: '2px solid',
         borderRadius: '2px',
         lineHeight: 1.5,
