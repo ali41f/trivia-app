@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Welcome from './pages/Welcome'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
+import { Question } from './pages/Question';
+
 
 function App() {
+
+  const [category, setCategory] = React.useState<string | number>('any');
+
+  const [difficulty, setDifficulty] = React.useState<string>('any');
+
+  const [message, setMessage] = React.useState<string>('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/game">
+            <Question
+              category={category}
+              difficulty={difficulty}
+              setMessage={(m) => setMessage(m)}
+            />
+          </Route>
+          <Route path="/">
+            <Welcome
+              category={category}
+              setCategory={(r) => setCategory(r)}
+              difficulty={difficulty}
+              setDifficulty={(r) => setDifficulty(r)}
+              message={message} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
+
 
 export default App;
