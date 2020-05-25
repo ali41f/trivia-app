@@ -2,49 +2,14 @@ import React from 'react'
 import stayhome from '../assets/stay-home.gif';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link as RouterLink } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Alert from '@material-ui/lab/Alert';
+import { RedirectButton } from '../components/OptionsButton/RedirectButton';
+import { useStyles } from '../components/OptionsButton/ButtonStyles';
 
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(2),
-        width: 200,
-        textAlign: 'left'
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-    customBtn: {
-        margin: theme.spacing(6, 1, 6, 1),
-        boxShadow: 'none',
-        textTransform: 'none',
-        fontSize: 16,
-        padding: '6px 12px',
-        minWidth: '300px',
-        border: '2px solid',
-        borderRadius: '2px',
-        lineHeight: 1.5,
-        color: "#fff",
-        backgroundColor: '#858484',
-        borderColor: '#666',
-        '&:hover': {
-            backgroundColor: '#21BDA3',
-            borderColor: '#21BDA3',
-            boxShadow: 'none'
-        },
-        '&:active': {
-            boxShadow: '#21BDA3',
-            backgroundColor: '#21BDA3',
-            borderColor: 'rgb(37, 197, 169)'
-        },
-    },
-}));
 
 interface WelcomeProps {
     category: string | number;
@@ -130,13 +95,7 @@ const Welcome: React.FC<WelcomeProps> = ({ category, setCategory, difficulty, se
                         </Select>
                     </FormControl>
                 </div>
-
-                <Button
-                    variant="contained"
-                    className={classes.customBtn}
-                    component={RouterLink}
-                    to="/game"
-                >Get Started</Button>
+                <RedirectButton to="/game" text="Get Started" />
             </Container>
         </React.Fragment >
     );

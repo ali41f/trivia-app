@@ -16,22 +16,25 @@ interface SingleQuestionProps {
         incorrect_answers: string[];
         correct_answer: string;
     };
-    result: (r: string) => void
+    result: (r: string) => void;
+    correctOption: (r: string) => void;
 }
 
-export const SingleQuestion: React.FC<SingleQuestionProps> = ({ questionObj, result }) => {
+export const SingleQuestion: React.FC<SingleQuestionProps> = ({ questionObj, result, correctOption }) => {
+
+    const [correct, setCorrect] = useState<string>(questionObj.correct_answer)
+
+    const [options, setOptions] = useState<string[]>(questionObj.incorrect_answers)
 
     const optionSelected = (selected: string) => {
         if (selected == correct) {
             result("correct")
         } else {
+            correctOption(correct)
             result("wrong")
         }
     }
 
-    const [correct, setCorrect] = useState<string>(questionObj.correct_answer)
-
-    const [options, setOptions] = useState<string[]>(questionObj.incorrect_answers)
 
     useEffect(() => {
         setOptions(shuffle([...options, correct]))

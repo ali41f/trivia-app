@@ -2,12 +2,16 @@ import React from 'react'
 import { OptionsButton } from './OptionsButton/OptionsButton'
 import Lottie from 'react-lottie';
 import animation from './../assets/timeup.json'
+import { RedirectButton } from './OptionsButton/RedirectButton';
 
 interface TimeupProps {
-    points: number
+    points: number;
+    nextQuestion: (r: string) => void;
+    totalQuestions: number;
+    questionNum: number;
 }
 
-export const Timeup: React.FC<TimeupProps> = ({ points }) => {
+export const Timeup: React.FC<TimeupProps> = ({ points, nextQuestion, totalQuestions, questionNum }) => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -22,9 +26,11 @@ export const Timeup: React.FC<TimeupProps> = ({ points }) => {
             <h2 style={{ marginTop: '10px' }}>Time is up</h2>
             <p>Your total points: {points}</p>
             <br />
-            {/*}
-            <OptionsButton OptionName="Next Question" />
-    {*/}
+            {
+                questionNum == totalQuestions ?
+                    <RedirectButton to="/" text="Play again" />
+                    : <OptionsButton optionSelected={nextQuestion} OptionName="Next Question" />
+            }
         </React.Fragment>
     );
 }

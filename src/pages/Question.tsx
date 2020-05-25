@@ -7,15 +7,7 @@ import { Wrong } from '../components/Wrong';
 import { Timeup } from '../components/Timeup';
 import Lottie from 'react-lottie';
 import animation from './../assets/loading2.json'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
-    useHistory,
-    useLocation
-} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 interface QuestionProps {
     category: string | number;
     difficulty: string;
@@ -31,7 +23,7 @@ export const Question: React.FC<QuestionProps> = ({ category, difficulty, setMes
     const [totalQuestions, setTotalQuestions] = useState<number>(10)
     const [points, setPoints] = useState<number>(0)
     const [earned, setEarned] = useState<number>(0)
-    const [wrongNum, setWrongNum] = useState<number>(2)
+    const [correctOption, setCorrectOption] = useState<string>('')
 
 
     useEffect(() => {
@@ -73,21 +65,32 @@ export const Question: React.FC<QuestionProps> = ({ category, difficulty, setMes
     let renderPage = () => {
         switch (page) {
             case "question":
-                return <SingleQuestion result={(r) => { setPage(r) }} questionObj={fetchedData[questionNum - 1]} />
+                return <SingleQuestion
+                    correctOption={(c) => setCorrectOption(c)}
+                    result={(r) => setPage(r)}
+                    questionObj={fetchedData[questionNum - 1]} />
                 break
             case "timeup":
-                return <Timeup points={points} />
-                break
-            case "correct":
-                return <Correct totalQuestions={totalQuestions} questionNum={questionNum} points={points} earned={earned} nextQuestion={nextQuestion} />
-                break
-            case "wrong":
-                return <Wrong
-                    wrongNum={wrongNum}
-                    setWrongNum={(n) => setWrongNum(n)}
+                return <Timeup
                     totalQuestions={totalQuestions}
                     questionNum={questionNum}
                     points={points}
+                    nextQuestion={nextQuestion} />
+                break
+            case "correct":
+                return <Correct
+                    totalQuestions={totalQuestions}
+                    questionNum={questionNum}
+                    points={points}
+                    earned={earned}
+                    nextQuestion={nextQuestion} />
+                break
+            case "wrong":
+                return <Wrong
+                    totalQuestions={totalQuestions}
+                    questionNum={questionNum}
+                    points={points}
+                    correctOption={correctOption}
                     nextQuestion={nextQuestion} />
                 break
             case "noQuestions":

@@ -2,6 +2,7 @@ import React from 'react'
 import { OptionsButton } from './OptionsButton/OptionsButton'
 import Lottie from 'react-lottie';
 import animation from './../assets/check-animation.json'
+import { RedirectButton } from './OptionsButton/RedirectButton';
 
 interface CorrectProps {
     points: number;
@@ -25,9 +26,12 @@ export const Correct: React.FC<CorrectProps> = ({ points, earned, nextQuestion, 
         <React.Fragment>
             <Lottie options={defaultOptions} width={300} height={300} />
             <h2 style={{ marginTop: '10px' }}>Correct</h2>
-            <p>You have earned {earned} points<br />Total: {points} points</p>
+            <p>You have earned {earned} points<br />Total points: {points}</p>
             {questionNum == totalQuestions ?
-                <h2>Congratulations, you have reached the end.</h2>
+                <>
+                    <h2>Congratulations, you have reached the end.</h2>
+                    <RedirectButton to="/" text="Play again" />
+                </>
                 : <OptionsButton optionSelected={nextQuestion} OptionName="Next Question" />}
         </React.Fragment>
     );
