@@ -18,23 +18,39 @@ interface SingleQuestionProps {
     };
     result: (r: string) => void;
     correctOption: (r: string) => void;
+    list?: boolean;
 }
 
-export const SingleQuestion: React.FC<SingleQuestionProps> = ({ questionObj, result, correctOption }) => {
+export const SingleQuestion: React.FC<SingleQuestionProps> = ({ questionObj, result, correctOption, list }) => {
 
     const [correct, setCorrect] = useState<string>(questionObj.correct_answer)
 
     const [options, setOptions] = useState<string[]>(questionObj.incorrect_answers)
 
-    const optionSelected = (selected: string) => {
-        if (selected == correct) {
-            result("correct")
+    const [optionSelected, setOptionSelected] = useState<boolean>(false)
+
+    const optionSelectedHandler = (selected: string) => {
+
+        if (list) {
+            if (!optionSelected) {
+                console.log("list answer selected")
+                setOptionSelected(true)
+                if (selected == correct) {
+                    result("correct")
+                } else {
+                    correctOption(correct)
+                    result("wrong")
+                }
+            }
         } else {
-            correctOption(correct)
-            result("wrong")
+            if (selected == correct) {
+                result("correct")
+            } else {
+                correctOption(correct)
+                result("wrong")
+            }
         }
     }
-
 
     useEffect(() => {
         setOptions(shuffle([...options, correct]))
@@ -42,13 +58,21 @@ export const SingleQuestion: React.FC<SingleQuestionProps> = ({ questionObj, res
     }, [])
 
     return (
-        <React.Fragment>
+        <div className="singleQuestion">
             <p className="questionText">
                 <span dangerouslySetInnerHTML={{ __html: questionObj.question }} />
             </p>
-            {options.map((o, i) => (
-                <OptionsButton optionSelected={optionSelected} key={i} OptionName={o} />
-            ))}
-        </React.Fragment>
+            {options.map((o, i) => {
+                return (
+                    <OptionsButton
+                        optionSelectedHandler={optionSelectedHandler}
+                        key={i}
+                        OptionName={o}
+                        list={list}
+                        optionSelected={optionSelected}
+                        correct={correct} />
+                )
+            })}
+        </div>
     );
 }

@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import stayhome from '../assets/stay-home.gif';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Alert from '@material-ui/lab/Alert';
 import { RedirectButton } from '../components/OptionsButton/RedirectButton';
 import { useStyles } from '../components/OptionsButton/ButtonStyles';
+import Radio, { RadioProps } from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import { withStyles } from '@material-ui/core';
+//import { GreenRadio } from '../components/GreenRadio';
+
+
 
 
 interface WelcomeProps {
@@ -16,12 +23,24 @@ interface WelcomeProps {
     setCategory: (r: string | number) => void;
     difficulty: string;
     setDifficulty: (r: string) => void;
+    setStyle: (r: string) => void;
     message: string
 }
 
-const Welcome: React.FC<WelcomeProps> = ({ category, setCategory, difficulty, setDifficulty, message }) => {
+const GreenRadio = withStyles({
+    root: {
+        color: '#19ad94',
+        '&$checked': {
+            color: '#19ad94',
+        },
+    },
+    checked: {},
+})((props: RadioProps) => <Radio color="default" {...props} />);
+
+const Welcome: React.FC<WelcomeProps> = ({ category, setCategory, difficulty, setDifficulty, message, setStyle }) => {
 
     const classes = useStyles();
+
 
     const handleChangeCategory = (event: any) => {
         setCategory(event.target.value);
@@ -29,6 +48,10 @@ const Welcome: React.FC<WelcomeProps> = ({ category, setCategory, difficulty, se
 
     const handleChangeDifficulty = (event: any) => {
         setDifficulty(event.target.value);
+    };
+
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStyle((event.target as HTMLInputElement).value);
     };
 
     return (
@@ -39,6 +62,21 @@ const Welcome: React.FC<WelcomeProps> = ({ category, setCategory, difficulty, se
                 <Typography variant="h5" component="h2">A TRIVIA GAME</Typography>
 
                 <div>
+                    <FormControl component="fieldset">
+                        <RadioGroup row aria-label="quizstyle" style={{ marginTop: '1rem' }} name="quizstyle" onChange={handleRadioChange} defaultValue="list">
+                            <FormControlLabel
+                                value="time"
+                                control={<GreenRadio />}
+                                label="Quiz with timer"
+                            />
+                            <FormControlLabel
+                                value="list"
+                                control={<GreenRadio />}
+                                label="Quiz without timer"
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                    <br />
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="category-native-simple">Category</InputLabel>
                         <Select

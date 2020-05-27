@@ -32,7 +32,7 @@ export const Correct: React.FC<CorrectProps> = ({ points, earned, nextQuestion, 
                     <h2>Congratulations, you have reached the end.</h2>
                     <RedirectButton to="/" text="Play again" />
                 </>
-                : <OptionsButton optionSelected={nextQuestion} OptionName="Next Question" />}
+                : <OptionsButton optionSelectedHandler={nextQuestion} OptionName="Next Question" />}
         </React.Fragment>
     );
 }

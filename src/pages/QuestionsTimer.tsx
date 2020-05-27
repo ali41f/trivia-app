@@ -6,7 +6,7 @@ import { Correct } from '../components/Correct';
 import { Wrong } from '../components/Wrong';
 import { Timeup } from '../components/Timeup';
 import Lottie from 'react-lottie';
-import animation from './../assets/loading2.json'
+import animation from '../assets/loading2.json'
 import { Redirect } from "react-router-dom";
 interface QuestionProps {
     category: string | number;
@@ -14,7 +14,7 @@ interface QuestionProps {
     setMessage: (m: string) => void;
 }
 
-export const Question: React.FC<QuestionProps> = ({ category, difficulty, setMessage }) => {
+export const QuestionsTimer: React.FC<QuestionProps> = ({ category, difficulty, setMessage }) => {
 
     const [page, setPage] = useState<string>('question')
     const [loading, setLoading] = useState<boolean>(true)

@@ -26,7 +26,7 @@ export const Wrong: React.FC<WrongProps> = ({ points, nextQuestion, totalQuestio
     return (
         <React.Fragment>
             <Lottie options={defaultOptions} width={300} height={300} />
-            <h2 style={{ marginTop: '10px' }}>Correct answer: {correctOption}</h2>
+            <h2 style={{ marginTop: '10px' }}>Correct answer: <span dangerouslySetInnerHTML={{ __html: correctOption }} /></h2>
             <p>Your total points: {points}</p>
             {
                 questionNum == totalQuestions ?
@@ -34,7 +34,7 @@ export const Wrong: React.FC<WrongProps> = ({ points, nextQuestion, totalQuestio
                         <h2>You have reached the end.</h2>
                         <RedirectButton to="/" text="Play again" />
                     </>
-                    : <OptionsButton optionSelected={nextQuestion} OptionName="Next Question" />
+                    : <OptionsButton optionSelectedHandler={nextQuestion} OptionName="Next Question" />
             }
         </React.Fragment>
     );

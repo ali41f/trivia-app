@@ -7,7 +7,8 @@ import {
   Route,
   Link
 } from "react-router-dom"
-import { Question } from './pages/Question';
+import { QuestionsTimer } from './pages/QuestionsTimer';
+import { QuestionList } from './pages/QuestionList';
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
 
   const [difficulty, setDifficulty] = React.useState<string>('any');
 
+  const [styleValue, setStyleValue] = useState<string>('list')
+
   const [message, setMessage] = React.useState<string>('');
 
   return (
@@ -23,15 +26,24 @@ function App() {
       <div>
         <Switch>
           <Route path="/game">
-            <Question
-              category={category}
-              difficulty={difficulty}
-              setMessage={(m) => setMessage(m)}
-            />
+            {
+              styleValue == "time" ?
+                <QuestionsTimer
+                  category={category}
+                  difficulty={difficulty}
+                  setMessage={(m) => setMessage(m)}
+                /> :
+                <QuestionList
+                  category={category}
+                  difficulty={difficulty}
+                  setMessage={(m) => setMessage(m)} />
+            }
+
           </Route>
           <Route path="/">
             <Welcome
               category={category}
+              setStyle={(v) => setStyleValue(v)}
               setCategory={(r) => setCategory(r)}
               difficulty={difficulty}
               setDifficulty={(r) => setDifficulty(r)}

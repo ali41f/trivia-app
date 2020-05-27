@@ -29,7 +29,7 @@ export const Timeup: React.FC<TimeupProps> = ({ points, nextQuestion, totalQuest
             {
                 questionNum == totalQuestions ?
                     <RedirectButton to="/" text="Play again" />
-                    : <OptionsButton optionSelected={nextQuestion} OptionName="Next Question" />
+                    : <OptionsButton optionSelectedHandler={nextQuestion} OptionName="Next Question" />
             }
         </React.Fragment>
     );
