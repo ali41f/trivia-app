@@ -14,6 +14,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 16,
         padding: '8px 12px',
         width: '350px',
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+        },
         borderRadius: '5px',
         lineHeight: 1.5,
         color: "#fff",
@@ -34,6 +37,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 16,
         padding: '8px 12px',
         width: '350px',
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+        },
         borderRadius: '5px',
         lineHeight: 1.5,
         color: "#fff",
@@ -54,6 +60,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 16,
         padding: '8px 12px',
         width: '350px',
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+        },
         borderRadius: '5px',
         lineHeight: 1.5,
         color: "#fff",
@@ -74,6 +83,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 16,
         padding: '8px 12px',
         width: '350px',
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+        },
         borderRadius: '5px',
         lineHeight: 1.5,
         color: "#fff",
